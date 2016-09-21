@@ -1,0 +1,151 @@
+{
+	"title": "Form paginato",
+	"mainOperation":"readOnly",
+	"type": "object",
+	"widget": "wizard",
+	"properties": {
+		"persona": {
+			"type": "object",
+			"properties": {
+				"username": {
+					"type": "string",
+					"readOnly":true,
+					"minLength": 2,
+					"maxLength": 12,
+					"description": "Username",
+					"db_fieldname":"username",
+					"tooltip":"inserire lo username"
+				},
+				"figli": {
+					"type": "boolean",
+					"default": false,
+					"description": "ha figli?",
+					"db_fieldname":"haFigli",
+					"tooltip":"spuntare se ha figli"
+				},
+				"email": {
+					"type": "string",
+					"format":"email",
+					"minLength": 2,
+					"maxLength": 32,
+					"description": "Email",
+					"db_fieldname":"email"
+				},
+				"dataNascita": {
+					"type": "string",
+					"format": "date",
+					"description": "Data di Nascita (usa format)",
+					"placeholder": "1995-10-12"
+				}
+			}
+		},
+		"lavoro": {
+			"type": "object",
+			"properties": {
+				"impiego": {
+					"type": "string",
+					"description": "Impiego attuale",
+					"placeholder": "Operaio"
+				},
+				"datore": {
+					"type": "string",
+					"description": "Datore",
+					"placeholder": "XYZ srl"
+				}
+			}
+		},
+		"residenza": {
+			"type": "object",
+			"properties": {
+				"cap": {
+					"type": "string",
+					"pattern": "^[0-9]{5}$",
+					"description": "CAP(usa pattern)",
+					"placeholder": "Ex: 12345"
+				},
+				"citta": {
+					"type": "string",
+					"description": "Citta"
+				},
+				"paese": {
+					"type": "string",
+					"widget": "select",
+					"oneOf": [{
+						"enum": ["italia"],
+						"description": "Italia"
+					}, {
+						"enum": ["francia"],
+						"description": "Francia"
+					}],
+					"description": "Paese (statico)",
+					"default": "italia"
+				},
+				"regione": {
+					"type": "string",
+					"widget": "select",
+					"oneOf": [{
+						"enum": ["lazio"],
+						"description": "Lazio"
+					}, {
+						"enum": ["lombardia"],
+						"description": "Lombardia"
+					}, {
+						"enum": ["campania"],
+						"description": "Campania"
+					}
+					],
+					"default": "lazio",
+					"description": "Regione (condizionale)",
+					"visibleIf": {
+						"paese": ["italia"]
+					}
+				}	
+			}
+		}
+	},
+	"required": ["persona", "residenza","lavoro"],
+
+	"buttons": [{
+      "id": "alert", 
+      "label": "Prova Bottone",
+	  "class": "btn btn-success btn-md" 
+    },{
+      "id": "alert", 
+      "label": "Prova Bottone",
+	  "class": "btn btn-warning btn-md" 
+    }],
+
+	"formtabs": [
+		{
+		"title": "Persona",	
+		"fields": [
+			{
+			"id":"persona",	"rows":[
+				[{"name":"email", "class":"col-xs-12"}], 
+				[{"name":"username", "class":"col-xs-12"}],
+				[{"name":"dataNascita", "class":"col-xs-6"},{"name":"figli", "class":"col-md-offset-1 col-xs-5"}]]}
+		]}, 
+		{
+		"title": "Persona2-test split di un gruppo",	
+		"fields": [
+			{
+			"id":"persona",	"rows":[
+				[{"name":"dataNascita", "class":"col-xs-6"},{"name":"figli", "class":"col-md-offset-1 col-xs-5"}]]}
+		]},{
+		"title": "Persona-test-form default",	
+		"fields": [{"id":"persona"}]
+		},
+		{
+		"title": "Altri Dati - merge di 2 gruppi in un tab",
+		"subtitle": "TODO",
+		"fields": [
+			{"id":"residenza", "title":"Residenza","rows":[
+				[{"name":"paese", "class":"col-xs-5"},{"name":"regione", "class":"col-md-offset-1 col-xs-5"}],
+				[{"name":"cap", "class":"col-xs-5"},{"name":"citta", "class":"col-md-offset-1 col-xs-5"}]]},
+			{"id":"lavoro", "title":"Lavoro", "rows":[
+				[{"name":"impiego", "class":"col-xs-12"}],
+				[{"name":"datore", "class":"col-xs-12"}]]}
+		]}
+	]
+}
+

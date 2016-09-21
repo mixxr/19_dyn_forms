@@ -1,0 +1,25 @@
+<nav class="navbar navbar-default">
+	<div class="container navbar-header">
+		<h1><small>{{schema.title}}, {{schema.mainOperation}}</small></h1>
+	</div>
+</nav>
+<main class="container">
+	<div class="col-md-12">
+		<br/>
+		<schema-form  [schema]="schema" [validators]="validators" [model]="model" [actions]="actions" (onChange)="val=$event.value"></schema-form>
+	</div>
+	<div class="col-md-12">
+		<hr/>
+		<legend>json di debug:</legend>
+		<button (click)="setNestedField(schema, 'readOnly', false)">edit</button>
+	</div>
+	<div class="col-md-6">
+		<b>Modello Collegato:</b><br/>
+		<pre>{{val | json}}</pre>
+	</div>
+	<div class="col-md-6">
+		<b>Schema Sorgente:</b><br/>
+		<pre>{{schema | json}}</pre>
+	</div>
+</main>
+

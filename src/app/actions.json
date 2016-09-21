@@ -1,0 +1,4 @@
+{
+    "alert": "(property) => {alert(JSON.stringify(property.value))}",
+    "reset": "(property) => {alert('reset')}"
+  }

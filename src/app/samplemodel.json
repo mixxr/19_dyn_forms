@@ -1,0 +1,18 @@
+{
+  "persona": {
+    "username": "mike",
+    "figli": false,
+    "email": "mike@mike.com",
+    "dataNascita": "2005-05-05"
+  },
+  "lavoro": {
+    "impiego": "dev",
+    "datore": "freelance"
+  },
+  "residenza": {
+    "cap": "12345",
+    "citta": "Roma",
+    "paese": "italia",
+    "regione": "lazio"
+  }
+}

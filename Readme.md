@@ -1,6 +1,5 @@
 # Dynamic Angular 2 Schema Form
 
-(https://github.com/makinacorpus/angular2-schema-form).
 
 ## Usage
 

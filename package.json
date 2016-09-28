@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npm run webpack-dev-server",
+    "start": "npm run webpack",
+    "start-in-mem": "npm run webpack-dev-server",
     "webpack-dev-server": "webpack-dev-server",
     "webpack": "webpack"
   },

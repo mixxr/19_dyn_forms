@@ -1,6 +1,6 @@
 {
 	"title": "Form paginato",
-	"mainOperation":"readOnly",
+	"mainOperation":"edit",
 	"type": "object",
 	"widget": "wizard",
 	"properties": {
@@ -16,12 +16,67 @@
 					"db_fieldname":"username",
 					"tooltip":"inserire lo username"
 				},
+				"nome": {
+					"type": "string",
+					"readOnly":true,
+					"minLength": 2,
+					"maxLength": 12,
+					"description": "Nome",
+					"db_fieldname":"nome",
+					"tooltip":"inserire il nome"
+				},
+				"cognome": {
+					"type": "string",
+					"readOnly":true,
+					"minLength": 2,
+					"maxLength": 12,
+					"description": "Cognome"
+				},
+				"stato": {
+					"type": "string",
+					"widget": "select",
+					"oneOf": [{
+						"enum": ["coniugato"],
+						"description": "Coniugato/a"
+					}, {
+						"enum": ["divorziato"],
+						"description": "Divorziato/a"
+					}, {
+						"enum": ["single"],
+						"description": "Single"
+					}],
+					"description": "Stato Civile",
+					"default": "single"
+				},
 				"figli": {
 					"type": "boolean",
 					"default": false,
 					"description": "ha figli?",
 					"db_fieldname":"haFigli",
 					"tooltip":"spuntare se ha figli"
+				},
+				"numFigli": {
+					"type": "string",
+					"widget": "select",
+					"oneOf": [{
+						"enum": ["1"],
+						"description": "1 figlio"
+					}, {
+						"enum": ["2"],
+						"description": "2 figli"
+					}, {
+						"enum": ["3"],
+						"description": "3 figli"
+					}, {
+						"enum": ["4"],
+						"description": "4+ figli"
+					}
+					],
+					"default": "1",
+					"description": "Numero figli",
+					"visibleIf": {
+						"figli": [true]
+					}
 				},
 				"email": {
 					"type": "string",
@@ -51,6 +106,56 @@
 					"type": "string",
 					"description": "Datore",
 					"placeholder": "XYZ srl"
+				},
+				"posizione": {
+					"type": "string",
+					"description": "Posizione attuale",
+					"placeholder": "1 Livello"
+				},
+				"campo11": {
+					"type": "string",
+					"description": "Campo 11",
+					"placeholder": "dati random"
+				},
+				"campo12": {
+					"type": "string",
+					"description": "Campo 12",
+					"placeholder": "dati random"
+				},
+				"campo13": {
+					"type": "string",
+					"description": "Campo 13",
+					"placeholder": "dati random"
+				},
+				"campo14": {
+					"type": "string",
+					"description": "Campo 14",
+					"placeholder": "dati random"
+				},
+				"campo15": {
+					"type": "string",
+					"description": "Campo 15",
+					"placeholder": "dati random"
+				},
+				"campo16": {
+					"type": "string",
+					"description": "Campo 16",
+					"placeholder": "dati random"
+				},
+				"campo17": {
+					"type": "string",
+					"description": "Campo 17",
+					"placeholder": "dati random"
+				},
+				"campo18": {
+					"type": "string",
+					"description": "Campo 18",
+					"placeholder": "dati random"
+				},
+				"campo19": {
+					"type": "string",
+					"description": "Campo 19",
+					"placeholder": "dati random"
 				}
 			}
 		},
@@ -118,26 +223,33 @@
 	"formtabs": [
 		{
 		"title": "Persona",	
+		"description": "messaggio di help caricat dinamicamente dal json schema",
 		"fields": [
 			{
 			"id":"persona",	"rows":[
-				[{"name":"email", "class":"col-xs-12"}], 
-				[{"name":"username", "class":"col-xs-12"}],
-				[{"name":"dataNascita", "class":"col-xs-6"},{"name":"figli", "class":"col-md-offset-1 col-xs-5"}]]}
+				[{"name":"nome", "class":"col-xs-6"}, {"name":"cognome", "class":"col-xs-6"}],
+				[{"name":"email", "class":"col-xs-6"},{"name":"username", "class":"col-xs-6"}],
+				[{"name":"dataNascita", "class":"col-xs-6"},{"name":"stato", "class":"col-md-offset-1 col-xs-5"}],
+				[{"name":"figli", "class":"col-xs-6"},{"name":"numFigli", "class":"col-md-offset-1 col-xs-5"}]]}
 		]}, 
 		{
-		"title": "Persona2-test split di un gruppo",	
+		"title": "Split di un gruppo",	
+		"description": "caricato dinamicamente dal json schema, qui abbiamo un oggetto di cui visualizziamo solamente alcuni campi per DEMO",
 		"fields": [
 			{
 			"id":"persona",	"rows":[
 				[{"name":"dataNascita", "class":"col-xs-6"},{"name":"figli", "class":"col-md-offset-1 col-xs-5"}]]}
 		]},{
-		"title": "Persona-test-form default",	
+		"title": "Form default",	
+		"description": "messaggio di help caricat dinamicamente dal json schema, questo e' un form con impostazioni di default",
 		"fields": [{"id":"persona"}]
-		},
-		{
-		"title": "Altri Dati - merge di 2 gruppi in un tab",
-		"subtitle": "TODO",
+		},{
+		"title": "Lavoro",	
+		"description": "messaggio di help caricat dinamicamente dal json schema, questo e' un form con impostazioni di default",
+		"fields": [{"id":"lavoro"}]
+		},		{
+		"title": "Merge di 2 gruppi",
+		"description": "qui invece abbiamo 2 oggetti caricati in un solo form (Residenza e Lavoro)",
 		"fields": [
 			{"id":"residenza", "title":"Residenza","rows":[
 				[{"name":"paese", "class":"col-xs-5"},{"name":"regione", "class":"col-md-offset-1 col-xs-5"}],

@@ -18,16 +18,29 @@ export class AppComponent {
 	setNestedField(obj:any, fieldName:string, fieldValue:any){
 		if(obj.properties){
 			Object.keys(obj.properties).forEach((p:any)=>this.setNestedField(obj.properties[p],fieldName,fieldValue));
-		}else
-			obj[fieldName] = fieldValue;
+		}else{
+			if (fieldName === 'disabled' || fieldName == 'readOnly'){
+				if (fieldValue)
+					obj[fieldName] = fieldName;
+				else
+					delete obj[fieldName];
+			}else 		
+				obj[fieldName] = fieldValue;
+		}
+			
 	}
+
+	inReadOnlyMode:boolean = false;
 
 	constructor(registry: WidgetRegistry) {
 		console.log("demo-app:constructor");
 		this.schema = require("./sampleschema.json");
 		this.model = require("./samplemodel.json");
-		if (this.schema.mainOperation)
-			this.setNestedField(this.schema, "readOnly", (this.schema.mainOperation === 'readOnly'));			
+		
+		if (this.schema.mainOperation){
+			this.inReadOnlyMode = (this.schema.mainOperation === 'readOnly');
+			this.setNestedField(this.schema, "readOnly", this.inReadOnlyMode);
+		}			
 		this.actions = require("./actions.json");
 		if (this.actions)
 			Object.keys(this.actions).forEach((k)=>
@@ -47,6 +60,16 @@ export class AppComponent {
 			}
 		}
 		return null;
+	}
+
+	onEdit() {
+		this.inReadOnlyMode = false;
+		this.setNestedField(this.schema, "readOnly", this.inReadOnlyMode);	
+	}
+
+	onRead() {
+		this.inReadOnlyMode = true;
+		this.setNestedField(this.schema, "readOnly", this.inReadOnlyMode);	
 	}
 
 }

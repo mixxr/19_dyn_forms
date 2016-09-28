@@ -1,17 +1,27 @@
-<nav class="navbar navbar-default">
-	<div class="container navbar-header">
-		<h1><small>{{schema.title}}, {{schema.mainOperation}}</small></h1>
+<nav class="navbar navbar-default navbar-fixed-top">
+  <div class="container-fluid">
+    <div class="navbar-header">
+	  <p class="navbar-text">{{schema.title}}, {{schema.mainOperation}}</p>
+	</div>
+    <div class="navbar-btn btn-group" data-toggle="buttons">
+        <label  [ngClass]="{'btn':true,'btn-sm':true,'btn-default':true,'active':!inReadOnlyMode}">
+            <input type="checkbox" name="options" (click)="onEdit()"> In Modifica
+        </label>
+        <label  [ngClass]="{'btn':true,'btn-sm':true,'btn-default':true,'active':inReadOnlyMode}">
+            <input type="checkbox" name="options" (click)="onRead()" > In Lettura
+        </label>
+    </div>
+
+
 	</div>
 </nav>
-<main class="container">
-	<div class="col-md-12">
-		<br/>
+<main class="container container-top">
+	<div class="row">
 		<schema-form  [schema]="schema" [validators]="validators" [model]="model" [actions]="actions" (onChange)="val=$event.value"></schema-form>
 	</div>
 	<div class="col-md-12">
 		<hr/>
 		<legend>json di debug:</legend>
-		<button (click)="setNestedField(schema, 'readOnly', false)">edit</button>
 	</div>
 	<div class="col-md-6">
 		<b>Modello Collegato:</b><br/>
